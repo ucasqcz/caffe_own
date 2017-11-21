@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "thrust/device_vector.h"
-#include "device_atomic_functions.hpp"
+#include "device_atomic_functions.h"
 
 #include "caffe/layer.hpp"
 #include "caffe/util/math_functions.hpp"
@@ -81,7 +81,8 @@ namespace caffe {
       }
     }
   }
-
+#if !defined(__CUDA_ARCH__) || __CUDA_ARCH__ >= 600
+#else
   __device__ double atomicAdd(double* address, double val) {
     unsigned long long int* address_as_ull =
       (unsigned long long int*)address;
@@ -94,6 +95,7 @@ namespace caffe {
     } while (assumed != old);
     return __longlong_as_double(old);
   }
+#endif
 
   template <>
   __global__ void TransformerBackward<double>(const int num, const int channels,

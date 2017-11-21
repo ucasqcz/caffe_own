@@ -32,11 +32,14 @@ void SoftmaxWithLossLayer<Dtype>::LayerSetUp(
     CHECK_GE(hard_ratio_, 0);
     CHECK_LE(hard_ratio_, 1);
   }
-  has_class_weight_ = !this->layer_param_.softmax_param().class_weight().empty();
+  has_class_weight_ = !(this->layer_param_.softmax_param().class_weight().size() == 0);
   softmax_axis_ =
     bottom[0]->CanonicalAxisIndex(this->layer_param_.softmax_param().axis());
   if (has_class_weight_) {
-    class_weight_.Reshape({ bottom[0]->shape(softmax_axis_) });
+    vector<int> tmp;
+    tmp.push_back(bottom[0]->shape(softmax_axis_));
+    //class_weight_.Reshape({ bottom[0]->shape(softmax_axis_) });
+    class_weight_.Reshape(tmp);
     CHECK_EQ(this->layer_param_.softmax_param().class_weight().size(), bottom[0]->shape(softmax_axis_));
     for (int i = 0; i < bottom[0]->shape(softmax_axis_); i++) {
       class_weight_.mutable_cpu_data()[i] = (Dtype)this->layer_param_.softmax_param().class_weight(i);
@@ -44,7 +47,10 @@ void SoftmaxWithLossLayer<Dtype>::LayerSetUp(
   }
   else {
     if (bottom.size() == 3) {
-      class_weight_.Reshape({ bottom[0]->shape(softmax_axis_) });
+      vector<int> tmp;
+      tmp.push_back(bottom[0]->shape(softmax_axis_));
+      //class_weight_.Reshape({ bottom[0]->shape(softmax_axis_) });
+      class_weight_.Reshape(tmp);
       for (int i = 0; i < bottom[0]->shape(softmax_axis_); i++) {
         class_weight_.mutable_cpu_data()[i] = (Dtype)1.0;
       }

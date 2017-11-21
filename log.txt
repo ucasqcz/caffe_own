@@ -1,0 +1,69 @@
+CXX src/caffe/test/test_diversity_loss_layer.cpp
+CXX/LD -o .build_release/test/test_all.testbin src/caffe/test/test_caffe_main.cpp
+.build_release/tools/caffe
+caffe: command line brew
+usage: caffe <command> <args>
+
+commands:
+  train           train or finetune a model
+  test            score a model
+  device_query    show GPU diagnostic information
+  time            benchmark model execution time
+
+  Flags from tools/caffe.cpp:
+    -gpu (Optional; run in GPU mode on given device IDs separated by ','.Use
+      '-gpu all' to run on all available GPUs. The effective training batch
+      size is multiplied by the number of devices.) type: string default: ""
+    -iterations (The number of iterations to run.) type: int32 default: 50
+    -model (The model definition protocol buffer text file.) type: string
+      default: ""
+    -sighup_effect (Optional; action to take when a SIGHUP signal is received:
+      snapshot, stop or none.) type: string default: "snapshot"
+    -sigint_effect (Optional; action to take when a SIGINT signal is received:
+      snapshot, stop or none.) type: string default: "stop"
+    -snapshot (Optional; the snapshot solver state to resume training.)
+      type: string default: ""
+    -solver (The solver definition protocol buffer text file.) type: string
+      default: ""
+    -weights (Optional; the pretrained weights to initialize finetuning,
+      separated by ','. Cannot be set simultaneously with snapshot.)
+      type: string default: ""
+.build_release/test/test_all.testbin 0 --gtest_shuffle 
+Cuda number of devices: 4
+Setting to use device 0
+Current device id: 0
+Current device name: GeForce GTX 1080 Ti
+Note: Randomizing tests' orders with a seed of 76808 .
+[==========] Running 8 tests from 4 test cases.
+[----------] Global test environment set-up.
+[----------] 2 tests from DiversityLossLayerTest/0, where TypeParam = caffe::CPUDevice<float>
+[ RUN      ] DiversityLossLayerTest/0.TestGradient
+[       OK ] DiversityLossLayerTest/0.TestGradient (738 ms)
+[ RUN      ] DiversityLossLayerTest/0.TestForward
+[       OK ] DiversityLossLayerTest/0.TestForward (0 ms)
+[----------] 2 tests from DiversityLossLayerTest/0 (738 ms total)
+
+[----------] 2 tests from DiversityLossLayerTest/2, where TypeParam = caffe::GPUDevice<float>
+[ RUN      ] DiversityLossLayerTest/2.TestGradient
+[       OK ] DiversityLossLayerTest/2.TestGradient (108 ms)
+[ RUN      ] DiversityLossLayerTest/2.TestForward
+[       OK ] DiversityLossLayerTest/2.TestForward (3 ms)
+[----------] 2 tests from DiversityLossLayerTest/2 (111 ms total)
+
+[----------] 2 tests from DiversityLossLayerTest/3, where TypeParam = caffe::GPUDevice<double>
+[ RUN      ] DiversityLossLayerTest/3.TestForward
+[       OK ] DiversityLossLayerTest/3.TestForward (3 ms)
+[ RUN      ] DiversityLossLayerTest/3.TestGradient
+[       OK ] DiversityLossLayerTest/3.TestGradient (94 ms)
+[----------] 2 tests from DiversityLossLayerTest/3 (97 ms total)
+
+[----------] 2 tests from DiversityLossLayerTest/1, where TypeParam = caffe::CPUDevice<double>
+[ RUN      ] DiversityLossLayerTest/1.TestForward
+[       OK ] DiversityLossLayerTest/1.TestForward (0 ms)
+[ RUN      ] DiversityLossLayerTest/1.TestGradient
+[       OK ] DiversityLossLayerTest/1.TestGradient (2 ms)
+[----------] 2 tests from DiversityLossLayerTest/1 (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 8 tests from 4 test cases ran. (949 ms total)
+[  PASSED  ] 8 tests.

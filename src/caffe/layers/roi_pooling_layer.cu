@@ -114,10 +114,10 @@ __global__ void ROIPoolBackward(const int nthreads, const Dtype* top_diff,
         continue;
       }
 
-      int roi_start_w = floorf(offset_bottom_rois[1] * spatial_scale + 0.5);
-      int roi_start_h = floorf(offset_bottom_rois[2] * spatial_scale + 0.5);
-      int roi_end_w = floorf(offset_bottom_rois[3] * spatial_scale + 0.5);
-      int roi_end_h = floorf(offset_bottom_rois[4] * spatial_scale + 0.5);
+      int roi_start_w = round(offset_bottom_rois[1] * spatial_scale);
+      int roi_start_h = round(offset_bottom_rois[2] * spatial_scale);
+      int roi_end_w = round(offset_bottom_rois[3] * spatial_scale);
+      int roi_end_h = round(offset_bottom_rois[4] * spatial_scale);
 
       // Skip if ROI doesn't include (h, w)
       const bool in_roi = (w >= roi_start_w && w <= roi_end_w &&

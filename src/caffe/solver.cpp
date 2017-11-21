@@ -260,7 +260,7 @@ void Solver<Dtype>::Step(int iters) {
             weight_gradient_norm += std::to_string(net_->layers()[k]->blobs()[0]->asum_diff() / net_->layers()[k]->blobs()[0]->count()) + " ";
           }
         }
-        if (weight_gradient_norm.size() > 20) LOG(INFO) << weight_gradient_norm;
+        //if (weight_gradient_norm.size() > 20) LOG(INFO) << weight_gradient_norm;
       }
     }
     for (int i = 0; i < callbacks_.size(); ++i) {

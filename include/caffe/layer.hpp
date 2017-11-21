@@ -315,7 +315,14 @@ class Layer {
     }
     param_propagate_down_[param_id] = value;
   }
-
+  //2017-6-1
+    /**
+  * @brief set phase
+  *		   enable train and test with one network, for saving memory
+  */
+  virtual inline void set_phase(Phase phase){
+	  phase_ = phase;
+  }
 
  protected:
   /** The protobuf that stores the layer parameters */

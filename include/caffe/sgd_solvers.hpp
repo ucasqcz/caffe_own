@@ -20,9 +20,8 @@ class SGDSolver : public Solver<Dtype> {
   explicit SGDSolver(const string& param_file)
       : Solver<Dtype>(param_file) { PreSolve(); }
   virtual inline const char* type() const { return "SGD"; }
-
+  
   const vector<shared_ptr<Blob<Dtype> > >& history() { return history_; }
-
  protected:
   void PreSolve();
   Dtype GetLearningRate();

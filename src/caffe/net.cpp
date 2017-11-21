@@ -273,6 +273,16 @@ void Net<Dtype>::Init(const NetParameter& in_param) {
   debug_info_ = param.debug_info();
   LOG_IF(INFO, Caffe::root_solver()) << "Network initialization done.";
 }
+//2017-6-1
+template <typename Dtype>
+void Net<Dtype>::SetPhase(Phase phase){
+	// set all layers 
+	for (int i = 0; i < layers_.size(); ++i){
+		layers_[i]->set_phase(phase);
+	}
+	// set net phase
+	phase_ = phase;
+}
 
 template <typename Dtype>
 void Net<Dtype>::FilterNet(const NetParameter& param,

@@ -348,6 +348,7 @@ namespace caffe {
 	*
 	* TODO(dox): thorough documentation for Forward, Backward, and proto params.
 	*/
+/*
 	template <typename Dtype>
 	class GramLayer : public Layer<Dtype> {
 	public:
@@ -370,7 +371,7 @@ namespace caffe {
 		virtual void Backward_gpu(const vector<Blob<Dtype>*>& top,
 			const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom);
 	};
-
+*/
   /**
   * @brief
   */
@@ -464,6 +465,7 @@ namespace caffe {
   *
   * TODO(dox): thorough documentation for Forward, Backward, and proto params.
   */
+/*
   template <typename Dtype>
   class SubRegionLayer : public Layer<Dtype> {
   public:
@@ -496,7 +498,7 @@ namespace caffe {
     int data_width_;
     int as_dim_;
   };
-
+*/
   /**
   * @brief Add noise.
   */
